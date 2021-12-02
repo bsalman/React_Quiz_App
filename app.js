@@ -3,6 +3,8 @@ const fileuplod = require ('express-fileupload') ;
 const cookie = require('cookie-parser')
 const fs = require('fs') ;
 
+const dataModule = require('./modules/sqlDataModules')
+
 
 
 const app = express();
@@ -16,7 +18,14 @@ app.use(fileuplod({
 }));
 const port = process.env.PORT || 4000
 //====================================================================//
-
+app.post('/register',(req,res)=>{
+    dataModule.getAllSubjects().then(subjects =>{
+        console.log(subjects);
+       res.json(subjects)
+    }).catch(error =>{
+        res.json(2)
+    })
+})
 //====================================================================//
 // app.use('/admin', adminRouter);
 
